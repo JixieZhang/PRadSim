@@ -131,7 +131,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
         }
 
         //RCEP PART
-        if (GunType == "elastic") {
+        else if (GunType == "elastic") {
             particles >> tmp1[0] >> tmp2[0] >> tmp3[0] >> tmp1[1] >> tmp2[1] >> tmp3[1] >> tmp1[2] >> tmp2[2] >> tmp3[2];
 
             particle = particleTable->FindParticle(particleName = "e-");
@@ -184,7 +184,7 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
         }
 
         // RCEE PART
-        if (GunType == "moller") {
+        else if (GunType == "moller") {
             particles >> tmp1[0] >> tmp2[0] >> tmp3[0] >> tmp1[1] >> tmp2[1] >> tmp3[1] >> tmp1[2] >> tmp2[2] >> tmp3[2];
             // 1st e
             particle = particleTable->FindParticle(particleName = "e-");
@@ -232,11 +232,18 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event *anEvent)
             }
         }
 
+        //all other cases: take variables from command like /gun/position  /gun/momentum
+        else {          
+            particleGun->GeneratePrimaryVertex(anEvent);          
+        }
+        
+        //print for debug
         /*
-        G4cout << x0 <<"  " << y0 << "  " << z0 << G4endl;
-        G4cout << kx << "  " << ky << "  " << kz << G4endl;
-        G4cout << Ene << G4endl;
-        G4cout << particleGun->GetParticleDefinition()->GetParticleName() << G4endl;
+        G4cout << "Particle type:" << particleGun->GetParticleDefinition()->GetParticleName() << G4endl;
+        G4cout << "Initial position:" <<particleGun->GetParticlePosition() << G4endl;
+        G4cout << "Initial momentum direction:" <<particleGun->GetParticleMomentumDirection() << G4endl;
+        G4cout << "Initial momentum:" <<particleGun->GetParticleMomentum() << G4endl;
+        G4cout << "Initial energy:" <<particleGun->GetParticleEnergy() << G4endl;
         */
         //n_particle += 1;
     }

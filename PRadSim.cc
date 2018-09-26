@@ -132,8 +132,7 @@ int main(int argc,char** argv)
 #ifdef G4VIS_USE
       UImanager->ApplyCommand("/control/execute vis.mac"); 
 #endif
-      if (ui->IsGUI())
-	UImanager->ApplyCommand("/control/execute gui.mac");
+      if (ui->IsGUI()) UImanager->ApplyCommand("/control/execute gui.mac");
       ui->SessionStart();
       delete ui;
 #endif
